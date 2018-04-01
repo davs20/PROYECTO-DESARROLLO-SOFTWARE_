@@ -37,3 +37,26 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('input[type="submit"]').removeAttr('disabled');
+        });
+        $(formulario_crear_precio).submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: 'PROBANDO.php',
+                data: $("#formulario_crear_precio").serializeArray(),
+                dataType: 'html',
+                success: function (data) {
+                    console.log(data);
+                    alert("SI FUNCIONA");
+                    $('input[type="submit"]').attr("disabled", "true");
+                },
+                error: function (data) {
+                    $('input[type="submit"]').removeAttr('disabled');
+                    console.log(data);
+                }
+            });
+        });
+    </script>
