@@ -22,6 +22,7 @@ class Conexion
 
             try {
                 $this->conexion = new PDO($server, $this->configuracion['usuario'], $this->configuracion['contreaseña']);
+                return $this->conexion;
             } catch (PDOException $exception) {
                 echo "Upps algo malo paso con la conexion " . $exception->getMessage();
             }

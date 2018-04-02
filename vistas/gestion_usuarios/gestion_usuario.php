@@ -33,32 +33,38 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Tipo de usuario</th>
-                                <th>Telefono</th>
                                 <th>Opciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th>0208199801109</th>
-                                <th>Orlando</th>
-                                <th>Calix</th>
-                                <th>Administrador</th>
-                                <th>97048432</th>
-                                <th>
-                                    <a class="btn btn-primary  btn-bitbucket ajax-request"
-                                       href="/gestion_usuarios/opciones/modificar_usuario.php">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-success btn-flat ajax-request"
-                                       href="/gestion_usuarios/opciones/consultar_usuario.php">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                    <a class="btn btn-danger btn-flat ajax-request"
-                                       href="/gestion_usuarios/opciones/eliminar_usuario.php">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </th>
-                            </tr>
+                            <?php
+                            include "../../controladores/Conexion.php";
+                            $conexion = new Conexion();
+                            $db = $conexion->obtenerConexion();
+                            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $stmt = $db->prepare("SELECT *  FROM usuario");
+                            $stmt->execute();
+                            $fila = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_LAST);
+                            do {
+                                echo "<tr>";
+                                echo "<td>" . $fila[0] . "</td>";
+                                echo "<td>" . $fila[1] . "</td>";
+                                echo "<td>" . $fila[2] . "</td>";
+                                echo "<td>" . $fila[3] . "</td>";
+                                echo '<td>
+                  <a class="btn btn-primary ajax-request" href="/gestion_usuarios/opciones/modificar_usuario.php?id=' . $fila[0] . '/usuario' . '">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  <a class="btn btn-success ajax-request" href="/gestion_usuarios/opciones/consultar_usuario.php?id=' . $fila[0] . '/usuario' . '">
+                  <i class="fa fa-search"></i>
+                  </a>
+                  <a class="btn btn-danger ajax-request" href="/gestion_usuarios/opciones/eliminar_usuario.php?id=' . $fila[0] . '/usuario' . '">
+                  <i class="fa fa-trash"></i>
+                  </a>
+                  </td>';
+                                echo "</tr>";
+                            } while ($fila = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_PRIOR));
+                            ?>
                             </tbody>
                         </table>
                     </div>

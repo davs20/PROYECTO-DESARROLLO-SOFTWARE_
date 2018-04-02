@@ -34,82 +34,33 @@
                             <th>Opciones</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th>1</th>
-                                <th>Premiun</th>
-                                <th>10000</th>
-                                <th>
-                                    <a class="btn btn-primary  btn-bitbucket ajax-request"
-                                       href="/configuraciones/opciones/editar_precio.php">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-success btn-flat ajax-request"
-                                       href="">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                    <a class="btn btn-danger btn-flat ajax-request"
-                                       href="">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <th>Premiun</th>
-                                <th>10000</th>
-                                <th>
-                                    <a class="btn btn-primary ajax-request"
-                                       href="">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-success ajax-request"
-                                       href="">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                    <a class="btn btn-danger ajax-request"
-                                       href="">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <th>Premiun</th>
-                                <th>10000</th>
-                                <th>
-                                    <a class="btn btn-primary ajax-request"
-                                       href="">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-success ajax-request"
-                                       href="">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                    <a class="btn btn-danger ajax-request"
-                                       href="">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <th>Premiun</th>
-                                <th>10000</th>
-                                <th>
-                                    <a class="btn btn-primary ajax-request"
-                                       href="">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-success ajax-request"
-                                       href="">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                    <a class="btn btn-danger ajax-request"
-                                       href="">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </th>
-                            </tr>
+                            <?php
+                            include "../../controladores/Conexion.php";
+                            $conexion = new Conexion();
+                            $db = $conexion->obtenerConexion();
+                            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $stmt = $db->prepare("SELECT *  FROM tipo_habitacion");
+                            $stmt->execute();
+                            $fila = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_LAST);
+                            do {
+                                echo "<tr>";
+                                echo "<td>" . $fila[0] . "</td>";
+                                echo "<td>" . $fila[1] . "</td>";
+                                echo "<td>" . $fila[2] . "</td>";
+                                echo '<td>
+                  <a class="btn btn-primary ajax-request" href="/configuraciones/opciones/editar_precio.php?id=' . $fila[0] . '">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  <a class="btn btn-success ajax-request" href="/configuraciones/opciones/consultar_precio.php?id=' . $fila[0] . '">
+                  <i class="fa fa-search"></i>
+                  </a>
+                  <a class="btn btn-danger ajax-request" href="/configuraciones/opciones/eliminar_precio.php?id=' . $fila[0] . '">
+                  <i class="fa fa-trash"></i>
+                  </a>
+                  </td>';
+                                echo "</tr>";
+                            } while ($fila = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_PRIOR));
+                            ?>
                             </tbody>
                         </table>
                     </div>
