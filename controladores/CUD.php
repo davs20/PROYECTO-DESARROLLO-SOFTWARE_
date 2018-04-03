@@ -5,7 +5,7 @@ require 'Conexion.php';
 class CUD
 {
 
-    public function ejecutar(): bool
+    public function ejecutar()
     {
 
         $clave = explode(" ", ManejoDatos::getInstrucciones());
@@ -19,10 +19,12 @@ class CUD
             //echo "<br>";
             //echo $this->opciones($opcionOperacion, $tabla, ManejoDatos::getCampos(), ManejoDatos::getValores());
             //echo "<br>";
-            return $pdo->
+            if($pdo->
             prepare($this->
             opciones($opcionOperacion, $tabla, ManejoDatos::getCampos(), ManejoDatos::getValores()))
-                ->execute(array_values(ManejoDatos::getDatos()));
+                ->execute(array_values(ManejoDatos::getDatos()))){
+                echo "Ok";
+            }
         } catch (PDOException $exception) {
             echo "Vaya algo salio mal de nuevo :(" . $exception->getMessage();
             return false;

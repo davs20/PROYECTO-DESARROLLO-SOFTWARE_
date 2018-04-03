@@ -58,7 +58,7 @@
                   <a class="btn btn-success ajax-request" href="/gestion_usuarios/opciones/consultar_usuario.php?id=' . $fila[0] . '/usuario' . '">
                   <i class="fa fa-search"></i>
                   </a>
-                  <a class="btn btn-danger ajax-request" href="/gestion_usuarios/opciones/eliminar_usuario.php?id=' . $fila[0] . '/usuario' . '">
+                  <a class="btn btn-danger ajax-rmequest" id="borrar" href="/gestion_usuarios/gestion_usuario.php">
                   <i class="fa fa-trash"></i>
                   </a>
                   </td>';
@@ -77,5 +77,11 @@
 <script>
     $(document).ready(function () {
         $('#datos').DataTable();
+    });
+</script>
+<script>
+    $( "#borrar" ).click(function() {
+        event.preventDefault();
+        alert( "Se va a borrar" );
     });
 </script>
